@@ -10,9 +10,10 @@ ENV VERSION=$VERSION
 RUN apk add --no-cache git python3 py3-setuptools \
 	&& git clone --recurse-submodules https://github.com/windelbouwman/ppci.git \
 	&& cd ppci \
-	&& python3 setup.py install && apk del git
+	&& python3 setup.py install && apk del git \
+	&& cd .. && rm -rf ppci
 
-RUN ppci-build -h
+RUN ppci-build -h && ppci-cc -h
 
 CMD ["ppci-build", "-h"]
 
